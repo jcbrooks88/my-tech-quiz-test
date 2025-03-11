@@ -100,7 +100,7 @@ const Quiz = () => {
         {currentQuestion.answers.map((answer, index) => (
           <div key={index} className="d-flex align-items-center mb-2">
             <button 
-              className="btn btn-primary" 
+              className="btn btn-primary" data-cy="answer-option" 
               onClick={() => handleAnswerClick(answer.isCorrect)}>
               {index + 1}
             </button>
