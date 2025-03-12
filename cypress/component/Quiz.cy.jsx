@@ -37,13 +37,25 @@ describe('Quiz Component', () => {
         cy.wrap($button).click();
       }
     });
-
-    // Verify quiz completion and score
-    cy.contains('Quiz Completed').should('be.visible');
-    cy.contains('Your score:').should('exist');
-    // Click to restart the quiz
-    cy.contains('Take New Quiz').click();
   });
+
+  it('should display the final score when the quiz is completed', () => {
+    cy.contains('Start Quiz').click();
+    cy.wait('@getQuestions');
+
+  // Answer all questions
+    cy.get('[data-cy="answer-option"]').each(($button, index, $list) => {
+      if (index < $list.length - 1) {
+        cy.wrap($button).click();
+      }
+    });
+
+  // Ensure the quiz completion message appears
+  cy.contains('Quiz Completed').should('be.visible');
+
+  // Check if the final score is displayed
+  cy.contains('Your score:').should('exist');
+});
 
   it('should allow restarting the quiz', () => {
     // Start the quiz
